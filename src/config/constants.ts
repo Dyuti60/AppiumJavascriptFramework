@@ -9,7 +9,8 @@ export const TIMEOUTS = {
 
 export const PLATFORMS = {
   ANDROID: 'Android',
-  WEB: 'Web'
+  WEB: 'Web',
+  BROWSER: 'Chrome'
 }
 
 export const AuthorDetails = {

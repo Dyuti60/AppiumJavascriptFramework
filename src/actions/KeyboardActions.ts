@@ -4,9 +4,9 @@ import type { Browser } from 'webdriverio'
 import Waits from '../waits/Waits'
 
 declare const browser: Browser
-declare let wait:Waits
 
 export default class KeyboardActions extends BaseClass {
+    wait = new Waits()
     /* ----------------------------------------------------
        TEXT ENTRY
     ---------------------------------------------------- */
@@ -16,7 +16,7 @@ export default class KeyboardActions extends BaseClass {
         text: string
     ): Promise<void> {
         try {
-            await wait.waitForElementUntilVisible(selector)
+            await this.wait.waitForElementUntilVisible(selector)
             const element = await $(selector)
 
             await element.addValue(text)
@@ -35,7 +35,7 @@ export default class KeyboardActions extends BaseClass {
         text: string
     ): Promise<void> {
         try {
-            await wait.waitForElementUntilVisible(selector)
+            await this.wait.waitForElementUntilVisible(selector)
             const element = await $(selector)
 
             await element.clearValue()
@@ -54,7 +54,7 @@ export default class KeyboardActions extends BaseClass {
 
     async clearText(selector: string): Promise<void> {
         try {
-            await wait.waitForElementUntilVisible(selector)
+            await this.wait.waitForElementUntilVisible(selector)
             const element = await $(selector)
 
             await element.clearValue()
@@ -74,7 +74,7 @@ export default class KeyboardActions extends BaseClass {
 
     async pressEnterOnElement(selector: string): Promise<void> {
         try {
-            await wait.waitForElementUntilVisible(selector)
+            await this.wait.waitForElementUntilVisible(selector)
             const element = await $(selector)
 
             await element.addValue('\n')

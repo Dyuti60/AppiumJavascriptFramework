@@ -13,6 +13,7 @@ declare global{
         ANDROID_DEVICE_NAME: string
         ANDROID_PLATFORM_VERSION: string
         ANDROID_DRIVER: string
+        ANDROID_DEVICE_UDID: string
         
         APP_PACKAGE: string
         APP_ACTIVITY: string

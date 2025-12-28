@@ -10,7 +10,7 @@ export default class Waits {
         timeout = this.DEFAULT_TIMEOUT
     ): Promise<void> {
         try {
-            const element = $(selector)
+            const element = await $(selector)
             await element.waitForDisplayed({ timeout })
             Log.info(`Element visible: ${selector}`)
         } catch (error) {
@@ -25,7 +25,7 @@ export default class Waits {
         timeout = this.DEFAULT_TIMEOUT
     ): Promise<boolean> {
         try {
-            const element = $(selector)
+            const element = await $(selector)
             await element.waitForClickable({ timeout })
             Log.info(`Element clickable: ${selector}`)
             return true
@@ -42,7 +42,7 @@ export default class Waits {
         timeout = this.DEFAULT_TIMEOUT
     ): Promise<void> {
         try {
-            const element = $(selector)
+            const element = await $(selector)
             await element.waitForExist({ timeout })
             Log.info(`Element exists: ${selector}`)
         } catch (error) {

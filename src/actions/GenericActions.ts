@@ -5,42 +5,31 @@ import Waits from '../waits/Waits'
 
 declare const browser: Browser
 
-declare let wait:Waits
-
 export default class GenericActions extends BaseClass {
+
+    wait = new Waits();
+
     /* ----------------------------------------------------
        SAFE CLICK
     ---------------------------------------------------- */
 
     async safelyClickElement(selector: string): Promise<void> {
-        let attempts = 2
-        let lastError: unknown
-
-        while (attempts > 0) {
             try {
-                console.info(`Attempting to click: ${selector}`)
+                console.info(`Waiting for element: ${selector}`)
 
-                await wait.waitForElementUntilClickable(selector)
-                await wait.waitForElementUntilVisible(selector)
+                await this.wait.waitForElementUntilVisible(selector)
+                await this.wait.waitForElementUntilClickable(selector)
+                await this.wait.waitForElementUntilExist(selector)
                 const element = await $(selector)
+
+                console.info(`Clicking element: ${selector}`)
                 await element.click()
-
-                console.info(`Successfully clicked: ${selector}`)
-                return
             } catch (error) {
-                lastError = error
-                attempts--
-                console.warn(
-                    `Click failed. Attempts left: ${attempts}`
-                )
+                throw error
             }
-        }
-
-        throw new Error(
-            `Failed to click element after retries: ${selector}`,
-            { cause: lastError as Error }
-        )
     }
+
+
 
     /* ----------------------------------------------------
        TEXT & ELEMENT UTILITIES
@@ -48,7 +37,7 @@ export default class GenericActions extends BaseClass {
 
     async getText(selector: string): Promise<string> {
         try{
-            await wait.waitForElementUntilVisible(selector)
+            await this.wait.waitForElementUntilVisible(selector)
             const element = await $(selector)
             const text = await element.getText()
             console.info(`Text from ${selector}: ${text}`)
@@ -60,7 +49,7 @@ export default class GenericActions extends BaseClass {
 
     async getElement(selector: string) {
         try{
-            await wait.waitForElementUntilVisible(selector)
+            await this.wait.waitForElementUntilVisible(selector)
             const element = await $(selector)
             return element
         }catch(error){
@@ -69,8 +58,19 @@ export default class GenericActions extends BaseClass {
 
     }
 
+    async getBrowserElement(selector: string) {
+        try{
+            await this.wait.waitForElementUntilVisible(selector)
+            const element = await browser.$(selector)
+            return element
+        }catch(error){
+            throw error
+        }
+
+    }
+
     async getElements(selector: string) {
-        await wait.waitForElementUntilVisible(selector)
+        await this.wait.waitForElementUntilVisible(selector)
         const elements = await $$(selector)
         if (await elements.length === 0) {
             throw new Error(`No elements found for selector: ${selector}`)
@@ -95,7 +95,7 @@ export default class GenericActions extends BaseClass {
     ): Promise<string> {
         try{
             const element = await $(selector)
-            await wait.waitForElementUntilVisible(selector)
+            await this.wait.waitForElementUntilVisible(selector)
             const value = await element.getAttribute(attribute)
             return value
         }catch(error){

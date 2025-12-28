@@ -66,14 +66,19 @@ export default class BaseClass {
     ---------------------------------------------------- */
 
     async startScreenRecording(): Promise<void> {
-        await (browser as any).execute('mobile: startScreenRecording')
+        if (browser.isAndroid) {
+            await browser.execute('mobile: startMediaProjectionRecording', {
+                videoSize: '720x1280',
+                bitRate: 4000000
+            })
+        }
     }
 
     async stopAndSaveScreenRecording(testCaseName: string): Promise<string> {
-        const base64Video = await (browser as any).execute(
-            'mobile: stopScreenRecording'
+        const base64Video = await browser.execute(
+                'mobile: stopMediaProjectionRecording',
+                {}
         ) as string
-
         const dateTime = this.getCurrentDateTime()
         const dirPath = path.join(
             process.cwd(),
@@ -84,9 +89,9 @@ export default class BaseClass {
         fs.mkdirSync(dirPath, { recursive: true })
 
         const filePath = path.join(dirPath, `${testCaseName}.mp4`)
-        const buffer = Buffer.from(base64Video, 'base64')
+        const buffer = await Buffer.from(base64Video, 'base64')
 
-        fs.writeFileSync(filePath, buffer)
+        await fs.writeFileSync(filePath, buffer)
         return filePath
     }
 }

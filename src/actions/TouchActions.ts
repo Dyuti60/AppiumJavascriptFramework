@@ -1,19 +1,38 @@
 import { $ , $$} from '@wdio/globals'
 import BaseClass from '../utils/BaseClass'
 import type { Browser } from 'webdriverio'
+import type { ChainablePromiseElement } from 'webdriverio';
 import Waits from '../waits/Waits'
 
 declare const browser: Browser
-declare let wait: Waits
 
 export default class TouchActions extends BaseClass {
+    wait = new Waits()
+
+    async tapByCoordinatesOnElement(Xaxis:number, Yaxis:number){
+        await browser.performActions([
+        {
+            type: 'pointer',
+            id: 'finger1',
+            parameters: { pointerType: 'touch' },
+            actions: [
+            { type: 'pointerMove', duration: 0, origin: 'viewport', x: Xaxis, y: Yaxis },
+            { type: 'pointerDown', button: 0 },
+            { type: 'pause', duration: 150 }, 
+            { type: 'pointerUp', button: 0 }
+            ]
+        }
+        ]);
+
+        await browser.releaseActions();
+    }
     /* ----------------------------------------------------
        LONG PRESS
     ---------------------------------------------------- */
 
     async longPressOnElement(selector: string, duration = 2000): Promise<void> {
         try {
-            await wait.waitForElementUntilVisible(selector)
+            await this.wait.waitForElementUntilVisible(selector)
             const element = await $(selector)
 
             await browser.execute('mobile: longClickGesture', {
@@ -31,6 +50,38 @@ export default class TouchActions extends BaseClass {
     /* ----------------------------------------------------
        SCROLL ACTIONS
     ---------------------------------------------------- */
+    async scrollMenuAndClick(menu: ChainablePromiseElement, optionText: string):Promise<void> {
+    for (let i = 0; i < 5; i++) {
+        const option = await browser.$(`//android.widget.TextView[@text="${optionText}"]`);
+        if (await option.isDisplayed()) {
+        await option.click();
+        return;
+        }
+
+        const location = await menu.getLocation();
+        const size = await menu.getSize();
+
+        const startX = location.x + size.width / 2;
+        const startY = location.y + size.height * 0.75;
+        const endY   = location.y + size.height * 0.25;
+
+        await browser.performActions([{
+        type: 'pointer',
+        id: 'finger1',
+        parameters: { pointerType: 'touch' },
+        actions: [
+            { type: 'pointerMove', duration: 0, origin: 'viewport', startX, y: startY },
+            { type: 'pointerDown', button: 0 },
+            { type: 'pointerMove', duration: 600, origin: 'viewport', startX, y: endY },
+            { type: 'pointerUp', button: 0 }
+        ]
+        }]);
+
+        await browser.releaseActions();
+    }
+
+    throw new Error(`Menu option "${optionText}" not found`);
+    }
 
     async scrollTillEnd(): Promise<void> {
         try {
@@ -138,7 +189,7 @@ export default class TouchActions extends BaseClass {
         direction: 'up' | 'down' | 'left' | 'right'
     ): Promise<void> {
         try {
-            await wait.waitForElementUntilVisible(selector)
+            await this.wait.waitForElementUntilVisible(selector)
             const element = await $(selector)
             
 
@@ -165,7 +216,7 @@ export default class TouchActions extends BaseClass {
         endY: number
     ): Promise<void> {
         try {
-            await wait.waitForElementUntilVisible(selector)
+            await this.wait.waitForElementUntilVisible(selector)
             const element = await $(selector)
 
             await browser.execute('mobile: dragGesture', {

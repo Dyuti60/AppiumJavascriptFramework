@@ -1,6 +1,7 @@
 import allure from '@wdio/allure-reporter'
 import BaseClass from './src/utils/BaseClass'
 import { AuthorDetails, PLATFORMS } from './src/config/constants';
+import { ANDROID_DEVICE } from './src/config';
 import * as fs from 'fs'
 import * as dotenv from 'dotenv'
 dotenv.config()
@@ -64,15 +65,18 @@ export const config: WebdriverIO.Config = {
     capabilities: [{
         // capabilities for local Appium web tests on an Android Emulator
         platformName: 'Android',
-        browserName: 'Chrome',
+        //browserName: PLATFORMS.BROWSER,
+        'appium:udid':'10BD3Y0CAU0000Q',
         'appium:chromedriverAutodownload': true,
-        'appium:deviceName': 'DyutiPhone',
-        'appium:platformVersion': '13.0',
-        'appium:automationName': 'UiAutomator2'
-        
+        'appium:deviceName': 'vivo V2240',
+        'appium:platformVersion': '15.0',
+        'appium:automationName': 'UiAutomator2',
+        'appium:noReset': false,
+        'appium:appPackage': 'com.satsangehub.dpworks',
+        'appium:appActivity': 'com.dpworks.MainActivity',
+        'appium:autoGrantPermissions': true
     } as any
   ],
-
     //        
     // ===================
     // Test Configurations
@@ -120,7 +124,7 @@ export const config: WebdriverIO.Config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: ['appium'],
+    //services: ['appium'],
     services: [
       [
         'appium',
@@ -162,33 +166,52 @@ export const config: WebdriverIO.Config = {
         disableWebdriverScreenshotsReporting: false
       }]
     ],
+    
+    before: async () => {
+      console.log('📦 Package:', await driver.getCurrentPackage())
+      console.log('🧭 Activity:', await driver.getCurrentActivity())
+    },
 
     beforeTest: async function (test, context) {
 
     // Feature = class / suite
-    allure.addFeature(test.parent || 'Mobile Tests')
+    await allure.addFeature(test.parent || 'Mobile Tests')
 
     // Story = test name
-    allure.addStory(test.title)
+    await allure.addStory(test.title)
 
-    allure.addOwner(AuthorDetails.AUTHORNAME)
+    await allure.addOwner(AuthorDetails.AUTHORNAME)
 
-    allure.addTag(PLATFORMS.ANDROID)
+    await allure.addTag(PLATFORMS.ANDROID)
 
     // Start screen recording
-    await base.startScreenRecording()
+    const disableRecording =
+      process.env.DISABLE_RECORDING === 'true'
+
+    if (!disableRecording) {
+      try {
+        //await base.startScreenRecording()
+      } catch (err) {
+        console.warn(
+          '⚠️ Screen recording skipped (secure app / unsupported device)'
+        )
+        throw err
+      }
+    }
+
+    
   },
 
 
 
   afterTest: async function ( test, context,{ error, passed }) {
-    const testName = test.title
+    const testName = await test.title
 
     // ❌ TEST FAILED
     if (!passed && error) {
 
         // attach error stack
-        allure.addAttachment(
+        await allure.addAttachment(
           'Error',
           error.stack || error.message,
           'text/plain'
@@ -196,27 +219,31 @@ export const config: WebdriverIO.Config = {
 
         const screenshot = await base.takeScreenshot(testName)
         // screenshot
-        const imageBuffer = fs.readFileSync(screenshot)
-        allure.addAttachment(
+        const imageBuffer = await fs.readFileSync(screenshot)
+        await allure.addAttachment(
           'Failure Screenshot',
           imageBuffer,
           'image/png'
       )
-
-      // stop & attach video
-      const videoPath = await base.stopAndSaveScreenRecording(testName)
-      if (videoPath) {
-        allure.addAttachment(
-          'Execution Video',
-          `<video controls src="${videoPath}"></video>`,
-          'text/html'
-        )
-      }
     return
   }
 
+  const disableRecording =
+  process.env.DISABLE_RECORDING === 'true'
+  if(!disableRecording || (!passed && error)){
+      // stop & attach video
+      const videoPath = null //await base.stopAndSaveScreenRecording(testName)
+      if (videoPath) {
+        const videoBuffer = fs.readFileSync(videoPath)
+        await allure.addAttachment(
+            'Failure Video',
+            videoBuffer,
+            'video/mp4'
+        )
+      }
+  }
   // ✅ TEST PASSED / SKIPPED
-  await base.stopAndSaveScreenRecording(testName)
+  //await base.stopAndSaveScreenRecording(testName)
 },
 
 onComplete: function () {

@@ -4,5 +4,6 @@ dotenv.config()
 export const ANDROID_DEVICE = {
   deviceName: process.env.ANDROID_DEVICE_NAME,
   platformVersion: process.env.ANDROID_PLATFORM_VERSION,
-  automationName: process.env.ANDROID_DRIVER
+  automationName: process.env.ANDROID_DRIVER,
+  deviceUdid: process.env.ANDROID_DEVICE_UDID
 }

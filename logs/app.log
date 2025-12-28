@@ -1,0 +1,51 @@
+2025-12-28 22:57:57 [WARN]: Element NOT visible after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 22:57:58 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 22:58:04 [WARN]: Element does NOT exist after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 23:03:08 [WARN]: Element NOT visible after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 23:03:16 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 23:03:21 [WARN]: Element does NOT exist after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 23:13:26 [WARN]: Element NOT visible after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 23:13:27 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 23:13:38 [WARN]: Element does NOT exist after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 23:22:34 [INFO]: Element visible: //android.widget.TextView[@text="Login"]
+2025-12-28 23:22:34 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 23:22:35 [INFO]: Element exists: //android.widget.TextView[@text="Login"]
+2025-12-28 23:23:33 [INFO]: Element visible: //android.widget.TextView[@text="Login"]
+2025-12-28 23:23:33 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-28 23:23:34 [INFO]: Element exists: //android.widget.TextView[@text="Login"]
+2025-12-29 00:34:53 [INFO]: Element visible: //android.widget.TextView[@text="Login"]
+2025-12-29 00:34:53 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-29 00:34:54 [INFO]: Element exists: //android.widget.TextView[@text="Login"]
+2025-12-29 00:35:05 [WARN]: Element NOT visible after 5000ms: //android.widget.ScrollView
+2025-12-29 00:35:06 [WARN]: Element NOT clickable after 5000ms: //android.widget.ScrollView
+2025-12-29 00:35:11 [WARN]: Element does NOT exist after 5000ms: //android.widget.ScrollView
+2025-12-29 00:38:32 [INFO]: Element visible: //android.widget.TextView[@text="Login"]
+2025-12-29 00:38:32 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-29 00:38:33 [INFO]: Element exists: //android.widget.TextView[@text="Login"]
+2025-12-29 00:38:44 [WARN]: Element NOT visible after 5000ms: //android.widget.ScrollView
+2025-12-29 00:38:44 [WARN]: Element NOT clickable after 5000ms: //android.widget.ScrollView
+2025-12-29 00:38:50 [WARN]: Element does NOT exist after 5000ms: //android.widget.ScrollView
+2025-12-29 00:41:47 [INFO]: Element visible: //android.widget.TextView[@text="Login"]
+2025-12-29 00:41:47 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-29 00:41:48 [INFO]: Element exists: //android.widget.TextView[@text="Login"]
+2025-12-29 00:41:59 [WARN]: Element NOT visible after 5000ms: //android.widget.ScrollView
+2025-12-29 00:42:00 [WARN]: Element NOT clickable after 5000ms: //android.widget.ScrollView
+2025-12-29 00:42:05 [WARN]: Element does NOT exist after 5000ms: //android.widget.ScrollView
+2025-12-29 00:47:26 [INFO]: Element visible: //android.widget.TextView[@text="Login"]
+2025-12-29 00:47:26 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-29 00:47:27 [INFO]: Element exists: //android.widget.TextView[@text="Login"]
+2025-12-29 00:47:38 [WARN]: Element NOT visible after 5000ms: //android.widget.ScrollView
+2025-12-29 00:47:40 [WARN]: Element NOT clickable after 5000ms: //android.widget.ScrollView
+2025-12-29 00:47:42 [INFO]: Element exists: //android.widget.ScrollView
+2025-12-29 00:49:10 [INFO]: Element visible: //android.widget.TextView[@text="Login"]
+2025-12-29 00:49:10 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-29 00:49:11 [INFO]: Element exists: //android.widget.TextView[@text="Login"]
+2025-12-29 00:49:17 [INFO]: Element visible: //android.widget.ScrollView
+2025-12-29 00:49:17 [WARN]: Element NOT clickable after 5000ms: //android.widget.ScrollView
+2025-12-29 00:49:19 [INFO]: Element exists: //android.widget.ScrollView
+2025-12-29 01:03:53 [INFO]: Element visible: //android.widget.TextView[@text="Login"]
+2025-12-29 01:03:53 [WARN]: Element NOT clickable after 5000ms: //android.widget.TextView[@text="Login"]
+2025-12-29 01:03:54 [INFO]: Element exists: //android.widget.TextView[@text="Login"]
+2025-12-29 01:04:05 [WARN]: Element NOT visible after 5000ms: //android.widget.ScrollView
+2025-12-29 01:04:06 [WARN]: Element NOT clickable after 5000ms: //android.widget.ScrollView
+2025-12-29 01:04:11 [WARN]: Element does NOT exist after 5000ms: //android.widget.ScrollView

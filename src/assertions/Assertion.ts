@@ -1,4 +1,3 @@
-import { expect } from 'expect-webdriverio'
 import { $ } from '@wdio/globals'
 import BaseClass from '../utils/BaseClass'
 
