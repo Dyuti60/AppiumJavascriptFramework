@@ -1,0 +1,7 @@
+{
+  "name": "Mobile Automation",
+  "type": "local",
+  "reportName": "Android Appium WDIO Test Report",
+  "buildName": "Regression Run - Android",
+  "buildOrder": 1
+}
